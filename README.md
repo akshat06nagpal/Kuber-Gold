@@ -51,4 +51,3 @@ to get model-written answers to advice questions; without it, vetted template an
 - Intent rules are regex-first; Hinglish/phrasing coverage is limited, LLM classification is used only for "unknown".
 - Single SQLite file + single worker; Postgres + a real job queue for scale.
 - No live gold-price API wired (mock constant, `PRICE_MODE=http` supports any JSON endpoint with `price_per_gram_inr`).
-- No actual walkthrough recording is included; record and link one before submitting.
