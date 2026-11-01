@@ -5,7 +5,7 @@ Python 3.12 · FastAPI · SQLite · integer money maths · optional LLM (any Ope
 ## Run it (under 5 minutes)
 
 ```bash
-docker compose up --build            # API on http://localhost:8000  (docs: /docs)
+docker compose up --build            # API on http://localhost:8000  (Swagger UI: http://localhost:8000/docs)
 pip install httpx && python scripts/verify.py     # full flow against the running server
 python scripts/trace_user.py <user_id>            # rebuild one user's journey from logs/app.jsonl
 ```
@@ -15,6 +15,8 @@ The LLM is optional. Copy `.env.example` to `.env` and set `LLM_API_KEY` (Gemini
 to get model-written answers to advice questions; without it, vetted template answers are used.
 
 ## API
+Interactive Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs) (available after starting the server).
+
 | | |
 |---|---|
 | `POST /chat` `{user_id, message}` (+ optional `Idempotency-Key`) | conversation; proposes purchases / SIPs, executes on "yes" |
