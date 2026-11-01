@@ -8,7 +8,7 @@ from decimal import Decimal
 from typing import Literal, Optional
 
 from fastapi import FastAPI, Header, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from pydantic import BaseModel, Field
 from starlette.middleware.base import BaseHTTPMiddleware
 
@@ -110,6 +110,11 @@ async def _price_err(request, exc):
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/", include_in_schema=False)
+def home():
+    return RedirectResponse(url="/docs")
 
 
 @app.post("/chat")

@@ -10,6 +10,10 @@ import httpx
 from .config import get_settings
 from .logs import log_event
 
+# Gemini's OpenAI-compatible API base URL. LLM_BASE_URL can override this for
+# other compatible providers (for example Groq or OpenRouter).
+GEMINI_OPENAI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai"
+
 ADVICE_SYSTEM = (
     "You are Kuber.AI, a friendly assistant inside a digital-gold app in India. "
     "Answer the user's question about gold/investing in at most 80 words, in the user's language "
@@ -29,7 +33,7 @@ def complete(system: str, user: str, max_tokens: int = 200) -> Optional[str]:
     t0 = time.time()
     try:
         r = httpx.post(
-            f"{s.llm_base_url.rstrip('/')}/chat/completions",
+            f"{(s.llm_base_url or GEMINI_OPENAI_BASE_URL).rstrip('/')}/chat/completions",
             headers={"Authorization": f"Bearer {s.llm_api_key}"},
             json={"model": s.llm_model, "temperature": 0.3, "max_tokens": max_tokens,
                   "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]},
